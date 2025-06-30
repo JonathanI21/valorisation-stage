@@ -27,8 +27,8 @@ const App = () => (
               <header className="h-16 border-b bg-white flex items-center px-6 shadow-sm">
                 <SidebarTrigger />
                 <div className="ml-4">
-                  <h1 className="text-xl font-semibold text-gray-900">StageConnect</h1>
-                  <p className="text-sm text-gray-500">Plateforme de partage d'expériences de stage</p>
+                  <h1 className="text-xl font-semibold text-gray-900">MesStages</h1>
+                  <p className="text-sm text-gray-500">Journal de stages pour collégiens et lycéens</p>
                 </div>
               </header>
               <main className="flex-1 p-6 overflow-auto">

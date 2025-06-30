@@ -1,4 +1,3 @@
-
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -20,11 +19,11 @@ export default function CreateExperience() {
     description: "",
     tags: [] as string[],
     plan: [
-      { id: 1, title: "Présentation de l'entreprise", content: "", completed: false },
-      { id: 2, title: "Missions et responsabilités", content: "", completed: false },
-      { id: 3, title: "Compétences acquises", content: "", completed: false },
-      { id: 4, title: "Environnement de travail", content: "", completed: false },
-      { id: 5, title: "Conseils pour futurs stagiaires", content: "", completed: false }
+      { id: 1, title: "Présentation du lieu de stage", content: "", completed: false },
+      { id: 2, title: "Les missions que j'ai observées", content: "", completed: false },
+      { id: 3, title: "Ce que j'ai appris", content: "", completed: false },
+      { id: 4, title: "L'ambiance et l'équipe", content: "", completed: false },
+      { id: 5, title: "Mes conseils pour un futur stage", content: "", completed: false }
     ]
   })
   const [newTag, setNewTag] = useState("")
@@ -84,25 +83,25 @@ export default function CreateExperience() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <FileText className="w-5 h-5" />
-                Informations générales
+                Informations sur ton stage
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="title">Titre de l'expérience</Label>
+                  <Label htmlFor="title">Titre de ton expérience</Label>
                   <Input
                     id="title"
-                    placeholder="Ex: Stage développeur web chez..."
+                    placeholder="Ex: Stage d'observation chez..."
                     value={formData.title}
                     onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="company">Entreprise</Label>
+                  <Label htmlFor="company">Lieu de stage</Label>
                   <Input
                     id="company"
-                    placeholder="Nom de l'entreprise"
+                    placeholder="Nom de l'entreprise, cabinet, école..."
                     value={formData.company}
                     onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
                   />
@@ -111,10 +110,10 @@ export default function CreateExperience() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="location">Localisation</Label>
+                  <Label htmlFor="location">Ville</Label>
                   <Input
                     id="location"
-                    placeholder="Ville, Pays"
+                    placeholder="Ville"
                     value={formData.location}
                     onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
                   />
@@ -123,7 +122,7 @@ export default function CreateExperience() {
                   <Label htmlFor="duration">Durée du stage</Label>
                   <Input
                     id="duration"
-                    placeholder="Ex: 3 mois"
+                    placeholder="Ex: 1 semaine"
                     value={formData.duration}
                     onChange={(e) => setFormData(prev => ({ ...prev, duration: e.target.value }))}
                   />
@@ -131,10 +130,10 @@ export default function CreateExperience() {
               </div>
 
               <div>
-                <Label htmlFor="description">Description générale</Label>
+                <Label htmlFor="description">Résumé de ton expérience</Label>
                 <Textarea
                   id="description"
-                  placeholder="Décrivez brièvement votre expérience de stage..."
+                  placeholder="Raconte en quelques mots ton stage..."
                   value={formData.description}
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   rows={4}
@@ -142,10 +141,10 @@ export default function CreateExperience() {
               </div>
 
               <div>
-                <Label>Tags et compétences</Label>
+                <Label>Mots-clés (classe, domaine, métier...)</Label>
                 <div className="flex gap-2 mb-2">
                   <Input
-                    placeholder="Ajouter un tag"
+                    placeholder="Ajouter un mot-clé"
                     value={newTag}
                     onChange={(e) => setNewTag(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleAddTag()}
@@ -176,12 +175,12 @@ export default function CreateExperience() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MapPin className="w-5 h-5" />
-                Plan de présentation
+                Raconte ton stage
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                Structurez votre présentation en remplissant chaque section. Cela aidera les autres étudiants à mieux comprendre votre expérience.
+                Structure ton récit en remplissant chaque section. Cela aidera d'autres élèves à mieux comprendre ton expérience.
               </p>
               
               {formData.plan.map((item, index) => (
@@ -195,7 +194,7 @@ export default function CreateExperience() {
                     </h4>
                   </div>
                   <Textarea
-                    placeholder={`Décrivez ${item.title.toLowerCase()}...`}
+                    placeholder={`Décris ${item.title.toLowerCase()}...`}
                     value={item.content}
                     onChange={(e) => handlePlanItemChange(item.id, 'content', e.target.value)}
                     rows={3}
@@ -212,12 +211,12 @@ export default function CreateExperience() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Camera className="w-5 h-5" />
-                Supports multimédias
+                Photos et documents
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                Ajoutez des photos, vidéos ou documents pour enrichir votre présentation.
+                Ajoute des photos ou documents pour illustrer ton stage (avec autorisation !).
               </p>
               
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
@@ -231,7 +230,7 @@ export default function CreateExperience() {
                 />
                 <label htmlFor="file-upload" className="cursor-pointer">
                   <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <div className="text-lg font-medium">Cliquez pour télécharger</div>
+                  <div className="text-lg font-medium">Clique pour ajouter des fichiers</div>
                   <div className="text-sm text-gray-500">
                     Photos, vidéos, PDF - Max 10MB par fichier
                   </div>
@@ -240,7 +239,7 @@ export default function CreateExperience() {
 
               {uploadedFiles.length > 0 && (
                 <div className="space-y-2">
-                  <h4 className="font-medium">Fichiers téléchargés ({uploadedFiles.length})</h4>
+                  <h4 className="font-medium">Fichiers ajoutés ({uploadedFiles.length})</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {uploadedFiles.map((file, index) => (
                       <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
@@ -289,7 +288,7 @@ export default function CreateExperience() {
               </div>
 
               <div>
-                <h4 className="font-medium mb-2">Plan de présentation</h4>
+                <h4 className="font-medium mb-2">Plan de ton récit</h4>
                 <div className="space-y-2">
                   {formData.plan.map((item, index) => (
                     <div key={item.id} className="text-sm">
@@ -318,12 +317,12 @@ export default function CreateExperience() {
                 size="lg"
                 onClick={() => {
                   toast({
-                    title: "Expérience publiée !",
-                    description: "Votre expérience est maintenant visible par tous les utilisateurs."
+                    title: "Ton expérience est publiée !",
+                    description: "Ton stage est maintenant visible par tous les autres élèves."
                   })
                 }}
               >
-                Publier mon expérience
+                Publier mon expérience de stage
               </Button>
             </CardContent>
           </Card>
@@ -337,9 +336,9 @@ export default function CreateExperience() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div>
-        <h1 className="text-3xl font-bold mb-2">Partagez votre expérience de stage</h1>
+        <h1 className="text-3xl font-bold mb-2">Partage ton expérience de stage</h1>
         <p className="text-gray-600">
-          Aidez d'autres étudiants en partageant votre expérience de stage
+          Aide d'autres collégiens et lycéens en racontant ton stage
         </p>
       </div>
 

@@ -9,55 +9,55 @@ import { Search, Filter, TrendingUp } from "lucide-react"
 const mockExperiences = [
   {
     id: "1",
-    title: "Stage en Développement Web chez TechCorp",
-    company: "TechCorp",
-    location: "Paris",
-    duration: "3 mois",
-    description: "Une expérience enrichissante dans le développement d'applications web modernes. J'ai travaillé sur des projets React et Node.js, appris les bonnes pratiques du développement en équipe et découvert l'univers des startups technologiques.",
+    title: "Stage d'observation en pharmacie",
+    company: "Pharmacie Martin",
+    location: "Toulouse",
+    duration: "1 semaine",
+    description: "Découverte du métier de pharmacien pendant ma 3ème. J'ai pu observer la préparation des médicaments, l'accueil des clients et comprendre l'importance de ce métier de santé dans notre quotidien.",
     author: {
-      name: "Marie Dubois",
+      name: "Emma Dupont",
       avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b77c?w=150&h=150&fit=crop&crop=face"
     },
-    tags: ["Développement", "React", "Node.js", "Startup"],
-    viewCount: 234,
-    messageCount: 12,
-    thumbnail: "photo-1498050108023-c5249f4df085"
+    tags: ["3ème", "Santé", "Pharmacie", "Découverte"],
+    viewCount: 89,
+    messageCount: 5,
+    thumbnail: "photo-1576091160399-112ba8d25d1f"
   },
   {
     id: "2",
-    title: "Stage Marketing Digital chez AdAgency",
-    company: "AdAgency",
+    title: "Une semaine chez un vétérinaire",
+    company: "Clinique Vétérinaire des Pins",
     location: "Lyon",
-    duration: "4 mois",
-    description: "Immersion complète dans le monde du marketing digital. Création de campagnes publicitaires, analyse de données, gestion des réseaux sociaux et découverte des outils d'automatisation marketing.",
+    duration: "1 semaine",
+    description: "Stage de 3ème formidable ! J'ai assisté à des consultations, vu des opérations et appris les gestes pour soigner les animaux. Une expérience qui m'a confortée dans mon envie de devenir vétérinaire.",
     author: {
-      name: "Thomas Martin",
+      name: "Lucas Moreau",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
     },
-    tags: ["Marketing", "Digital", "Réseaux sociaux", "Analytics"],
-    viewCount: 189,
+    tags: ["3ème", "Animaux", "Vétérinaire", "Médical"],
+    viewCount: 124,
     messageCount: 8,
-    thumbnail: "photo-1460925895917-afdab827c52f"
+    thumbnail: "photo-1516734212186-a967f81ad0d7"
   },
   {
     id: "3",
-    title: "Stage Ingénieur Logiciel chez InnovateTech",
-    company: "InnovateTech",
-    location: "Toulouse",
-    duration: "6 mois",
-    description: "Développement de solutions logicielles pour l'industrie aéronautique. Travail sur des systèmes critiques, apprentissage des normes de qualité et découverte des méthodologies Agile.",
+    title: "Découverte du métier d'institutrice",
+    company: "École primaire Jean Moulin",
+    location: "Marseille",
+    duration: "1 semaine",
+    description: "J'ai passé une semaine dans une classe de CP pour découvrir le métier d'enseignante. Préparation des cours, aide aux devoirs, surveillance... un métier passionnant mais exigeant !",
     author: {
-      name: "Sophie Chen",
+      name: "Léa Bernard",
       avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
     },
-    tags: ["Ingénierie", "Aéronautique", "C++", "Agile"],
-    viewCount: 156,
-    messageCount: 15,
-    thumbnail: "photo-1461749280684-dccba630e2f6"
+    tags: ["3ème", "Éducation", "Enseignement", "Enfants"],
+    viewCount: 67,
+    messageCount: 3,
+    thumbnail: "photo-1497486751825-1233686d5d80"
   }
 ]
 
-const popularTags = ["Développement", "Marketing", "Design", "Data Science", "Commercial", "RH"]
+const popularTags = ["3ème", "Santé", "Éducation", "Commerce", "Artisanat", "Bureau"]
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -76,10 +76,10 @@ export default function Home() {
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Découvrez des expériences de stage inspirantes
+          Découvre des expériences de stage inspirantes
         </h1>
         <p className="text-lg text-gray-600">
-          Explorez les témoignages de stagiaires et trouvez l'inspiration pour votre parcours professionnel
+          Lis les témoignages d'autres collégiens et lycéens pour t'inspirer dans tes choix d'orientation
         </p>
       </div>
 
@@ -88,7 +88,7 @@ export default function Home() {
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
           <Input
-            placeholder="Rechercher par entreprise, métier, ville..."
+            placeholder="Rechercher par métier, lieu, classe..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"
@@ -136,7 +136,7 @@ export default function Home() {
             Aucune expérience trouvée
           </h3>
           <p className="text-gray-500">
-            Essayez de modifier vos critères de recherche
+            Essaie de modifier tes critères de recherche
           </p>
         </div>
       )}

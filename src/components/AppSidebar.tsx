@@ -1,5 +1,4 @@
 
-import { useState } from "react"
 import { Home, Plus, MessageCircle, User, FileText } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 
@@ -17,28 +16,29 @@ import {
 
 const menuItems = [
   { title: "Accueil", url: "/", icon: Home },
-  { title: "Partager mon expérience", url: "/create", icon: Plus },
+  { title: "Partager mon stage", url: "/create", icon: Plus },
   { title: "Mes conversations", url: "/chat", icon: MessageCircle },
   { title: "Mon profil", url: "/profile", icon: User },
 ]
 
 export function AppSidebar() {
-  const { collapsed } = useSidebar()
+  const { state } = useSidebar()
   const location = useLocation()
   const currentPath = location.pathname
+  const isCollapsed = state === "collapsed"
 
   const isActive = (path: string) => currentPath === path
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
     isActive ? "bg-primary/10 text-primary font-medium" : "hover:bg-muted/50"
 
   return (
-    <Sidebar className={collapsed ? "w-14" : "w-60"} collapsible>
+    <Sidebar collapsible="icon">
       <SidebarContent>
         <div className="p-4">
-          <h2 className={`font-bold text-lg ${collapsed ? 'hidden' : 'block'}`}>
-            StageConnect
+          <h2 className={`font-bold text-lg ${isCollapsed ? 'hidden' : 'block'}`}>
+            MesStages
           </h2>
-          {collapsed && (
+          {isCollapsed && (
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
               <FileText className="w-4 h-4 text-white" />
             </div>
@@ -46,7 +46,7 @@ export function AppSidebar() {
         </div>
         
         <SidebarGroup>
-          <SidebarGroupLabel className={collapsed ? 'hidden' : 'block'}>
+          <SidebarGroupLabel className={isCollapsed ? 'hidden' : 'block'}>
             Navigation
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -56,7 +56,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} end className={getNavCls}>
                       <item.icon className="h-4 w-4" />
-                      {!collapsed && <span className="ml-2">{item.title}</span>}
+                      {!isCollapsed && <span className="ml-2">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
