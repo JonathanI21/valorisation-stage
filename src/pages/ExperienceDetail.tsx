@@ -1,4 +1,3 @@
-
 import { useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -7,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
-import { ArrowLeft, MessageCircle, Eye, Calendar, MapPin, Play, Download } from "lucide-react"
+import { ArrowLeft, MessageCircle, Eye, Calendar, MapPin, Play, Download, Award } from "lucide-react"
 
 export default function ExperienceDetail() {
   const { id } = useParams()
@@ -30,6 +29,20 @@ export default function ExperienceDetail() {
     viewCount: 234,
     messageCount: 12,
     createdAt: "Il y a 2 semaines",
+    badges: [
+      {
+        id: "1",
+        name: "Première expérience professionnelle",
+        level: "bronze",
+        icon: "🏢"
+      },
+      {
+        id: "2",
+        name: "Communicateur expert",
+        level: "silver",
+        icon: "💬"
+      }
+    ],
     plan: [
       {
         id: 1,
@@ -90,6 +103,15 @@ export default function ExperienceDetail() {
   const completedSections = experience.plan.filter(section => section.completed).length
   const progressPercentage = (completedSections / experience.plan.length) * 100
 
+  const getLevelColor = (level: string) => {
+    switch (level) {
+      case 'bronze': return 'bg-amber-600'
+      case 'silver': return 'bg-gray-400'
+      case 'gold': return 'bg-yellow-500'
+      default: return 'bg-gray-400'
+    }
+  }
+
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       {/* Navigation */}
@@ -133,6 +155,29 @@ export default function ExperienceDetail() {
                   </Badge>
                 ))}
               </div>
+
+              {/* Badges obtenus */}
+              {experience.badges.length > 0 && (
+                <div className="mb-4">
+                  <h4 className="font-medium mb-2 flex items-center gap-2">
+                    <Award className="w-4 h-4" />
+                    Badges obtenus pour cette expérience
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {experience.badges.map((badge) => (
+                      <div key={badge.id} className="flex items-center gap-2 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-lg px-3 py-2">
+                        <div className={`w-6 h-6 rounded-full ${getLevelColor(badge.level)} flex items-center justify-center text-xs`}>
+                          {badge.icon}
+                        </div>
+                        <span className="text-sm font-medium">{badge.name}</span>
+                        <Badge variant="outline" className="text-xs">
+                          {badge.level}
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
@@ -291,6 +336,10 @@ export default function ExperienceDetail() {
               <div className="flex justify-between">
                 <span className="text-sm">Sections complétées</span>
                 <span className="font-medium">{completedSections}/{experience.plan.length}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm">Badges obtenus</span>
+                <span className="font-medium">{experience.badges.length}</span>
               </div>
             </CardContent>
           </Card>
