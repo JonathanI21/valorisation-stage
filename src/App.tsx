@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,6 +12,7 @@ import ExperienceDetail from "./pages/ExperienceDetail";
 import NotFound from "./pages/NotFound";
 import Conventions from "./pages/Conventions";
 import Badges from "./pages/Badges";
+import Proximity from "./pages/Proximity";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +39,7 @@ const App = () => (
                   <Route path="/create" element={<CreateExperience />} />
                   <Route path="/conventions" element={<Conventions />} />
                   <Route path="/badges" element={<Badges />} />
+                  <Route path="/proximity" element={<Proximity />} />
                   <Route path="/chat" element={<Chat />} />
                   <Route path="/experience/:id" element={<ExperienceDetail />} />
                   <Route path="*" element={<NotFound />} />

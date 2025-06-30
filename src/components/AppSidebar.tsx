@@ -1,5 +1,5 @@
 
-import { Home, Plus, MessageCircle, User, FileText, FileSignature, Award } from "lucide-react"
+import { Home, Plus, MessageCircle, User, FileText, FileSignature, Award, Radar } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 
 import {
@@ -19,6 +19,7 @@ const menuItems = [
   { title: "Partager mon stage", url: "/create", icon: Plus },
   { title: "Conventions de stage", url: "/conventions", icon: FileSignature },
   { title: "Mes badges", url: "/badges", icon: Award },
+  { title: "Proximité", url: "/proximity", icon: Radar },
   { title: "Mes conversations", url: "/chat", icon: MessageCircle },
   { title: "Mon profil", url: "/profile", icon: User },
 ]
