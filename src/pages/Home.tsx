@@ -1,10 +1,11 @@
-
 import { useState } from "react"
 import { ExperienceCard } from "@/components/ExperienceCard"
+import { JobSectorFilter } from "@/components/JobSectorFilter"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Search, Filter, TrendingUp } from "lucide-react"
+import { Search, Filter, TrendingUp, SlidersHorizontal } from "lucide-react"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 
 const mockExperiences = [
   {
@@ -62,13 +63,25 @@ const popularTags = ["3ème", "Santé", "Éducation", "Commerce", "Artisanat", "
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
+  const [selectedSector, setSelectedSector] = useState<string | null>(null)
+  const [showFilters, setShowFilters] = useState(false)
 
   const filteredExperiences = mockExperiences.filter(exp => {
     const matchesSearch = exp.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          exp.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          exp.description.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesTag = !selectedTag || exp.tags.includes(selectedTag)
-    return matchesSearch && matchesTag
+    
+    // Simple sector matching based on experience content
+    const matchesSector = !selectedSector || 
+      (selectedSector === "Santé et Social" && (exp.title.includes("pharmacie") || exp.title.includes("vétérinaire"))) ||
+      (selectedSector === "Éducation et Formation" && exp.title.includes("institutrice")) ||
+      (selectedSector === "Commerce et Vente" && exp.tags.includes("Commerce")) ||
+      (selectedSector === "Artisanat et Métiers d'Art" && exp.tags.includes("Artisanat")) ||
+      (selectedSector === "Administration et Bureautique" && exp.tags.includes("Bureau")) ||
+      (selectedSector === "Industrie et Technique" && exp.tags.includes("Technique"))
+    
+    return matchesSearch && matchesTag && matchesSector
   })
 
   return (
@@ -94,11 +107,27 @@ export default function Home() {
             className="pl-10"
           />
         </div>
-        <Button variant="outline" className="flex items-center gap-2">
-          <Filter className="w-4 h-4" />
-          Filtres avancés
+        <Button 
+          variant="outline" 
+          className="flex items-center gap-2"
+          onClick={() => setShowFilters(!showFilters)}
+        >
+          <SlidersHorizontal className="w-4 h-4" />
+          Filtres par métiers
         </Button>
       </div>
+
+      {/* Collapsible Filters */}
+      <Collapsible open={showFilters} onOpenChange={setShowFilters}>
+        <CollapsibleContent>
+          <div className="border rounded-lg p-4 bg-gray-50">
+            <JobSectorFilter 
+              selectedSector={selectedSector}
+              onSectorChange={setSelectedSector}
+            />
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
 
       {/* Popular Tags */}
       <div className="space-y-3">
@@ -120,6 +149,23 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Active Filters Display */}
+      {(selectedSector || selectedTag) && (
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-sm font-medium">Filtres actifs:</span>
+          {selectedSector && (
+            <Badge variant="outline" className="cursor-pointer" onClick={() => setSelectedSector(null)}>
+              {selectedSector} ×
+            </Badge>
+          )}
+          {selectedTag && (
+            <Badge variant="outline" className="cursor-pointer" onClick={() => setSelectedTag(null)}>
+              {selectedTag} ×
+            </Badge>
+          )}
+        </div>
+      )}
+
       {/* Experiences Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredExperiences.map((experience) => (
@@ -136,7 +182,7 @@ export default function Home() {
             Aucune expérience trouvée
           </h3>
           <p className="text-gray-500">
-            Essaie de modifier tes critères de recherche
+            Essaie de modifier tes critères de recherche ou filtres
           </p>
         </div>
       )}
